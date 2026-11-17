@@ -55,10 +55,11 @@ p{margin:0}
 
 /* hero */
 .hero{padding:clamp(40px,8vw,96px) 0 clamp(64px,10vw,140px);overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(40px,6vw,110px);align-items:center}
 .hero h1{font-size:clamp(32px,4.2vw,56px);position:relative;z-index:2}
 .hero h1 em{font-style:normal;color:var(--acc)}
-.hero .lead{margin-top:28px;font-size:clamp(18px,1.6vw,21px);color:var(--muted);max-width:34em}
+.hero .lead{margin-top:28px;font-size:clamp(18px,1.6vw,21px);color:var(--muted);max-width:min(34em,100%)}
+.hero .wrap>div:first-child{position:relative;z-index:2}
 .hero .cta{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px}
 .fan{position:relative;height:clamp(300px,36vw,500px);margin-right:calc(-1 * var(--gut) - 120px)}
 .fan .shot{position:absolute;width:min(620px,52vw);left:0;top:50%;transform-origin:20% 90%;transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
@@ -71,8 +72,20 @@ p{margin:0}
 .fan.open .shot:hover{z-index:5}
 @media(max-width:900px){
   .hero .wrap{grid-template-columns:1fr}
-  .fan{margin:10px 0 0 9vw;height:min(64vw,400px)}
-  .fan .shot{width:80vw}
+  .fan{margin:28px 0 0;height:56vw;max-height:460px}
+  .fan .shot{width:min(72vw,600px);top:0}
+  .fan .f1,.fan .f2,.fan .f3{transform:none}
+  .fan.open .f1{transform:translate(0,2%) rotate(-5deg)}
+  .fan.open .f2{transform:translate(14%,12%) rotate(-1deg)}
+  .fan.open .f3{transform:translate(28%,22%) rotate(4deg)}
+}
+@media(min-width:1800px){
+  :root{--max:1480px}
+  body{font-size:18px}
+  .hero h1{font-size:68px}
+  .hero .lead{font-size:23px}
+  .fan{height:580px}
+  .fan .shot{width:min(780px,42vw)}
 }
 @media(prefers-reduced-motion:reduce){.fan .shot{transition:none}}
 
@@ -94,11 +107,18 @@ p{margin:0}
 .tf .pair{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:28px;margin-top:72px;align-items:end}
 .tf .phone{border-radius:28px;transform:translateY(40px)}
 .tf .pair figcaption{color:var(--dim);font-size:14px;margin-top:12px}
+@media(max-width:1100px){
+  .tf .body{grid-template-columns:1fr;gap:40px}
+  .tf .body .lead{max-width:36em}
+}
 @media(max-width:860px){
-  .tf .body{grid-template-columns:1fr}
-  .feat{grid-template-columns:1fr}
-  .tf .pair{grid-template-columns:1fr 38%}
+  .tf .pair{grid-template-columns:1fr 34%}
   .tf .phone{transform:none}
+}
+@media(max-width:600px){
+  .feat{grid-template-columns:1fr}
+  .tf .pair{grid-template-columns:1fr;gap:36px}
+  .tf .pair figure:last-child{width:min(240px,64vw);margin:0 auto !important}
 }
 
 /* Nihongo — shelf */
@@ -108,12 +128,32 @@ p{margin:0}
 .jp h2 small{display:block;font-family:var(--body);font-weight:500;font-size:clamp(17px,1.5vw,20px);letter-spacing:0;color:var(--muted);margin-top:14px;line-height:1.4}
 .jp .head p{font-size:18px;color:var(--muted)}
 .jp .head p strong{color:var(--ink);font-weight:500}
-.shelf{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:56px var(--gut) 24px;margin-top:8px;scrollbar-width:thin;scrollbar-color:var(--s3) transparent}
-.shelf figure{margin:0;flex:none;scroll-snap-align:start;width:min(600px,82vw)}
-.shelf figure.tall{width:min(250px,48vw)}
+.shelf-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:48px}
+.shelf-bar .hint{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:15px}
+.shelf-bar .hint .ico{color:var(--acc)}
+.arrows{display:flex;gap:10px}
+.arr{width:52px;height:52px;border-radius:50%;border:0;background:var(--s3);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s,opacity .2s}
+.arr:hover:not(:disabled){background:var(--acc);color:var(--acc-ink)}
+.arr:disabled{opacity:.3;cursor:default}
+.arr:focus-visible,.shelf:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.shelf-box{position:relative}
+.shelf-box::before,.shelf-box::after{content:"";position:absolute;top:0;bottom:40px;width:min(14vw,160px);pointer-events:none;z-index:2;transition:opacity .25s}
+.shelf-box::before{left:0;background:linear-gradient(90deg,var(--s1),transparent);opacity:0}
+.shelf-box::after{right:0;background:linear-gradient(270deg,var(--s1) 10%,transparent)}
+.shelf-box.scrolled::before{opacity:1}
+.shelf-box.at-end::after{opacity:0}
+.shelf{--sp:var(--gut);--fig:min(600px,82vw);display:flex;align-items:flex-start;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:20px var(--sp) 16px;scroll-padding-inline:var(--sp);scrollbar-width:none;cursor:grab;overscroll-behavior-x:contain}
+.shelf::-webkit-scrollbar{display:none}
+.shelf.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.shelf.dragging .shot{cursor:grabbing}
+.track{height:4px;border-radius:4px;background:var(--s3);margin-top:8px;position:relative;overflow:hidden}
+.track i{position:absolute;top:0;bottom:0;left:0;width:30%;border-radius:4px;background:var(--acc)}
+@media(max-width:600px){.arr{width:44px;height:44px}.shelf-bar{margin-top:36px}}
+.shelf figure{margin:0;flex:none;scroll-snap-align:start;width:var(--fig)}
+.shelf figure.tall{width:calc(var(--fig) * .625 * 600 / 1298)}
 .shelf .shot{background:var(--s2)}
 .shelf figcaption{color:var(--muted);font-size:15px;margin-top:14px}
-@media(min-width:1240px){.shelf{padding-left:calc((100vw - var(--max))/2 + var(--gut))}}
+@media(min-width:1240px){.shelf{--sp:calc((100vw - min(var(--max),100vw))/2 + var(--gut))}}
 .nums{display:flex;flex-wrap:wrap;gap:24px 72px;margin-top:56px}
 .nums div{font-family:var(--display);font-weight:700;font-size:clamp(38px,4.6vw,60px);line-height:1;color:var(--acc)}
 .nums span{display:block;font-family:var(--body);font-weight:400;font-size:15px;color:var(--muted);margin-top:10px;max-width:15em}
@@ -165,7 +205,7 @@ p{margin:0}
 /* footer */
 .end{background:var(--acc);color:var(--acc-ink);padding:clamp(56px,9vw,120px) 0 40px}
 .end p{font-size:clamp(18px,1.6vw,21px);max-width:30em}
-.end a.big{display:inline-block;margin-top:22px;font-family:var(--display);font-weight:700;font-size:clamp(24px,5.6vw,68px);line-height:1.05;text-decoration:none;letter-spacing:-.03em;overflow-wrap:anywhere}
+.end a.big{display:inline-block;margin-top:22px;font-family:var(--display);font-weight:700;font-size:clamp(16px,6.6vw,88px);line-height:1.05;text-decoration:none;letter-spacing:-.03em;white-space:nowrap}
 .end a.big:hover{text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:10px}
 .end small{display:block;margin-top:64px;font-size:14px;opacity:.7}
 
@@ -249,13 +289,23 @@ dialog img{max-height:94vh;width:auto;border-radius:10px;cursor:zoom-out}
       <p>Слова, кандзі й граматика проходять через <strong>один алгоритм інтервальних повторень SM-2</strong>, як в Anki. Курс граматики зібраний за уроками Genki, до кожної теми є теорія, приклади й вікторина. Над кандзі автоматично стоїть фуригана, а аудіювання озвучує Web Speech API. Інтерфейс англійською та українською.</p>
     </div>
   </div>
-  <div class="shelf" tabindex="0" aria-label="Скриншоти Nihongo SRS">
+  <div class="wrap shelf-bar">
+    <p class="hint"><svg class="ico" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></svg>5 екранів, гортайте вбік</p>
+    <div class="arrows">
+      <button class="arr" type="button" data-dir="-1" aria-label="Попередній скриншот"><svg class="ico" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="arr" type="button" data-dir="1" aria-label="Наступний скриншот"><svg class="ico" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+  <div class="shelf-box" id="shelfBox">
+  <div class="shelf" id="shelf" tabindex="0" aria-label="Скриншоти Nihongo SRS">
     <figure><div class="shot"><img src="img/jp-kanji.webp" alt="Сітка кандзі рівня N5" width="1400" height="875" loading="lazy"></div><figcaption>103 кандзі рівня N5 з перекладом</figcaption></figure>
     <figure><div class="shot"><img src="img/jp-kanji-detail.webp" alt="Картка кандзі 私 з читаннями он і кун" width="1400" height="875" loading="lazy"></div><figcaption>Картка кандзі: читання, поєднання, радикали, мнемоніка</figcaption></figure>
     <figure class="tall"><div class="shot"><img src="img/jp-mobile.webp" alt="Головна сторінка на телефоні" width="600" height="1298" loading="lazy"></div><figcaption>Мобільна версія</figcaption></figure>
     <figure><div class="shot"><img src="img/jp-grammar.webp" alt="Розділи граматики за уроками Genki" width="1400" height="875" loading="lazy"></div><figcaption>Граматика за уроками Genki 1 і 2</figcaption></figure>
     <figure><div class="shot"><img src="img/jp-vocab.webp" alt="Словник за рівнями JLPT" width="1400" height="875" loading="lazy"></div><figcaption>Словник: слово в чергу вивчення одним кліком</figcaption></figure>
   </div>
+  </div>
+  <div class="wrap"><div class="track" aria-hidden="true"><i id="shelfThumb"></i></div></div>
   <div class="wrap">
     <div class="nums">
       <div>552<span>слова в базі, 149 з прикладами речень</span></div>
@@ -339,6 +389,47 @@ dialog img{max-height:94vh;width:auto;border-radius:10px;cursor:zoom-out}
     img.addEventListener('click',function(){li.src=img.src;li.alt=img.alt;lb.showModal()});
   });
   lb.addEventListener('click',function(){lb.close()});
+
+  var sh=document.getElementById('shelf'), box=document.getElementById('shelfBox'), thumb=document.getElementById('shelfThumb');
+  var arrows=document.querySelectorAll('.arr');
+  var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function step(){var f=sh.querySelector('figure');return f?f.getBoundingClientRect().width+20:300}
+  function update(){
+    var max=sh.scrollWidth-sh.clientWidth, x=sh.scrollLeft;
+    var vis=Math.min(1,sh.clientWidth/sh.scrollWidth), p=max>0?x/max:0;
+    thumb.style.width=(vis*100)+'%';
+    thumb.style.left=(p*(1-vis)*100)+'%';
+    box.classList.toggle('scrolled',x>4);
+    box.classList.toggle('at-end',x>=max-4);
+    arrows[0].disabled=x<=4; arrows[1].disabled=x>=max-4;
+  }
+  arrows.forEach(function(b){b.addEventListener('click',function(){
+    sh.scrollBy({left:Number(b.dataset.dir)*step(),behavior:calm?'auto':'smooth'});
+  })});
+  sh.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update);
+  update();
+
+  var drag=null, moved=false;
+  sh.addEventListener('pointerdown',function(e){
+    if(e.pointerType!=='mouse'||e.button!==0)return;
+    drag={x:e.clientX,left:sh.scrollLeft}; moved=false;
+  });
+  window.addEventListener('pointermove',function(e){
+    if(!drag)return;
+    var dx=e.clientX-drag.x;
+    if(!moved&&Math.abs(dx)>5){moved=true;sh.classList.add('dragging')}
+    if(moved){sh.scrollLeft=drag.left-dx;e.preventDefault()}
+  });
+  window.addEventListener('pointerup',function(){
+    if(!drag)return;
+    drag=null;
+    if(moved){
+      var x=sh.scrollLeft; sh.classList.remove('dragging'); sh.scrollLeft=x;
+    }
+  });
+  sh.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+  sh.addEventListener('dragstart',function(e){e.preventDefault()});
 })();
 </script>
 </body>
