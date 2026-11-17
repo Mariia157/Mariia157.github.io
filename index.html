@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mariia157 — портфоліо</title>
+<meta name="description" content="Full-stack розробка на Next.js і TypeScript: трекер задач для команди, тренажер японської з інтервальними повтореннями, інтернет-магазин ПК з конфігуратором.">
+<meta property="og:title" content="Mariia157 — портфоліо">
+<meta property="og:description" content="Трекер задач, тренажер японської, магазин ПК з конфігуратором. Next.js, TypeScript, Prisma.">
+<meta property="og:image" content="https://mariia157.github.io/img/og.png?v=3">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#131210">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#131210; --s1:#1b1a17; --s2:#24221e; --s3:#2e2b26;
+  --ink:#efe9df; --muted:#a59d90; --dim:#776f63;
+  --acc:#f0a63c; --acc-ink:#1c1405;
+  --paper:#f4efe6; --paper-2:#e9e2d5; --paper-ink:#1d1a16; --paper-muted:#5f584d;
+  --r:14px; --gut:clamp(16px,4vw,48px); --max:1240px;
+  --display:"Unbounded",system-ui,sans-serif; --body:"Onest",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.08;margin:0}
+p{margin:0}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font-weight:600;text-decoration:none;transition:transform .2s,background .2s}
+.btn svg{width:18px;height:18px}
+.btn-acc{background:var(--acc);color:var(--acc-ink)}
+.btn-acc:hover{transform:translateY(-2px)}
+.btn-ghost{background:var(--s2);color:var(--ink)}
+.btn-ghost:hover{background:var(--s3)}
+.shot{border-radius:var(--r);overflow:hidden;background:var(--s2);box-shadow:0 30px 60px -30px rgba(0,0,0,.7);cursor:zoom-in}
+.shot img{width:100%}
+.ico{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.repo{display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:none;border-bottom:2px solid var(--acc);padding-bottom:2px}
+.repo:hover{color:var(--acc)}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;background:rgba(19,18,16,.92)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-family:var(--display);font-weight:700;font-size:18px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:12px;height:12px;border-radius:3px;background:var(--acc);display:block;transform:rotate(45deg)}
+.top nav{display:flex;gap:28px;font-size:15px}
+.top nav a{text-decoration:none;color:var(--muted)}
+.top nav a:hover{color:var(--ink)}
+@media(max-width:720px){.top nav a:not(.gh){display:none}}
+
+/* hero */
+.hero{padding:clamp(40px,8vw,96px) 0 clamp(64px,10vw,140px);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center}
+.hero h1{font-size:clamp(32px,4.2vw,56px);position:relative;z-index:2}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero .lead{margin-top:28px;font-size:clamp(18px,1.6vw,21px);color:var(--muted);max-width:34em}
+.hero .cta{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px}
+.fan{position:relative;height:clamp(300px,36vw,500px);margin-right:calc(-1 * var(--gut) - 120px)}
+.fan .shot{position:absolute;width:min(620px,52vw);left:0;top:50%;transform-origin:20% 90%;transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.fan .f1{transform:translate(0,-50%) rotate(0)}
+.fan .f2{transform:translate(0,-50%) rotate(0)}
+.fan .f3{transform:translate(0,-50%) rotate(0)}
+.fan.open .f1{transform:translate(-6%,-62%) rotate(-7deg)}
+.fan.open .f2{transform:translate(10%,-50%) rotate(-1deg)}
+.fan.open .f3{transform:translate(26%,-36%) rotate(5deg)}
+.fan.open .shot:hover{z-index:5}
+@media(max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .fan{margin:10px 0 0 9vw;height:min(64vw,400px)}
+  .fan .shot{width:80vw}
+}
+@media(prefers-reduced-motion:reduce){.fan .shot{transition:none}}
+
+/* section heads */
+.proj{padding:clamp(72px,10vw,140px) 0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;color:var(--muted);font-size:14px;margin-top:20px}
+.meta span{background:var(--s2);padding:5px 12px;border-radius:8px}
+
+/* Taskflow — wide bleed */
+.tf .title{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.tf h2{font-size:clamp(40px,6.4vw,92px)}
+.tf .bleed{margin-top:48px;margin-right:calc((100vw - min(var(--max),100vw)) / -2 - var(--gut));}
+.tf .bleed .shot{border-radius:var(--r) 0 0 var(--r)}
+.tf .body{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,6vw,96px);margin-top:64px}
+.tf .body .lead{font-size:clamp(20px,1.9vw,26px);line-height:1.45}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:26px 36px}
+.feat b{display:block;font-weight:600;margin-bottom:4px}
+.feat p{color:var(--muted);font-size:16px}
+.tf .pair{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:28px;margin-top:72px;align-items:end}
+.tf .phone{border-radius:28px;transform:translateY(40px)}
+.tf .pair figcaption{color:var(--dim);font-size:14px;margin-top:12px}
+@media(max-width:860px){
+  .tf .body{grid-template-columns:1fr}
+  .feat{grid-template-columns:1fr}
+  .tf .pair{grid-template-columns:1fr 38%}
+  .tf .phone{transform:none}
+}
+
+/* Nihongo — shelf */
+.jp{background:var(--s1)}
+.jp .head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:end}
+.jp h2{font-size:clamp(40px,6vw,84px)}
+.jp h2 small{display:block;font-family:var(--body);font-weight:500;font-size:clamp(17px,1.5vw,20px);letter-spacing:0;color:var(--muted);margin-top:14px;line-height:1.4}
+.jp .head p{font-size:18px;color:var(--muted)}
+.jp .head p strong{color:var(--ink);font-weight:500}
+.shelf{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:56px var(--gut) 24px;margin-top:8px;scrollbar-width:thin;scrollbar-color:var(--s3) transparent}
+.shelf figure{margin:0;flex:none;scroll-snap-align:start;width:min(600px,82vw)}
+.shelf figure.tall{width:min(250px,48vw)}
+.shelf .shot{background:var(--s2)}
+.shelf figcaption{color:var(--muted);font-size:15px;margin-top:14px}
+@media(min-width:1240px){.shelf{padding-left:calc((100vw - var(--max))/2 + var(--gut))}}
+.nums{display:flex;flex-wrap:wrap;gap:24px 72px;margin-top:56px}
+.nums div{font-family:var(--display);font-weight:700;font-size:clamp(38px,4.6vw,60px);line-height:1;color:var(--acc)}
+.nums span{display:block;font-family:var(--body);font-weight:400;font-size:15px;color:var(--muted);margin-top:10px;max-width:15em}
+.jp .foot{font-size:15px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center;margin-top:56px;color:var(--muted)}
+@media(max-width:860px){.jp .head{grid-template-columns:1fr}}
+
+/* RagePC — light split */
+.rage{background:var(--paper);color:var(--paper-ink)}
+.rage .wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,6vw,88px);align-items:center}
+.rage h2{font-size:clamp(40px,5.6vw,80px)}
+.rage .meta{color:var(--paper-muted)}
+.rage .meta span{background:var(--paper-2)}
+.rage .lead{margin-top:28px;font-size:19px;color:var(--paper-muted)}
+.rage ul{list-style:none;padding:0;margin:34px 0 40px;display:grid;gap:18px}
+.rage li{display:flex;gap:14px;align-items:flex-start}
+.rage li .ico{color:#c8321f;margin-top:3px}
+.rage li b{font-weight:600}
+.rage .repo{border-color:#c8321f}
+.rage .repo:hover{color:#c8321f}
+.stage{position:relative;padding-bottom:70px}
+.stage .shot{box-shadow:0 40px 80px -40px rgba(60,40,20,.45);background:var(--paper-2)}
+.stage .back{width:82%;margin-left:auto}
+.stage .front{position:absolute;left:0;bottom:0;width:62%}
+.stage .phone{position:absolute;right:-2%;bottom:-36px;width:24%;border-radius:22px;border:6px solid var(--paper-ink)}
+@media(max-width:900px){.rage .wrap{grid-template-columns:1fr}.stage{margin-top:12px}}
+
+/* other repos */
+.other{padding:clamp(72px,10vw,130px) 0 40px}
+.other h2{font-size:clamp(28px,3.4vw,42px);max-width:16em}
+.rows{margin-top:40px;border-radius:var(--r);overflow:hidden}
+.row{display:grid;grid-template-columns:200px minmax(0,1fr) 180px 120px;gap:24px;align-items:center;padding:22px 26px;text-decoration:none;background:var(--s1);transition:background .2s}
+.row:nth-child(even){background:var(--s2)}
+.row:hover{background:var(--s3)}
+.row b{font-weight:600;font-size:18px}
+.row p{color:var(--muted)}
+.row .tech{color:var(--ink);font-size:15px}
+.row .yr{color:var(--dim);font-size:15px;text-align:right;display:flex;justify-content:flex-end;align-items:center;gap:10px}
+@media(max-width:860px){.row{grid-template-columns:1fr auto;gap:6px 16px}.row p,.row .tech{grid-column:1/-1}.row .yr{grid-row:1;grid-column:2}}
+
+/* stack */
+.stack{padding:clamp(56px,8vw,110px) 0}
+.stack .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:48px}
+.stack h2{font-size:clamp(28px,3.4vw,42px)}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 48px}
+.cols h3{font-family:var(--body);font-size:15px;font-weight:600;color:var(--acc);letter-spacing:0;display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cols p{color:var(--muted)}
+@media(max-width:860px){.stack .wrap,.cols{grid-template-columns:1fr}}
+
+/* footer */
+.end{background:var(--acc);color:var(--acc-ink);padding:clamp(56px,9vw,120px) 0 40px}
+.end p{font-size:clamp(18px,1.6vw,21px);max-width:30em}
+.end a.big{display:inline-block;margin-top:22px;font-family:var(--display);font-weight:700;font-size:clamp(24px,5.6vw,68px);line-height:1.05;text-decoration:none;letter-spacing:-.03em;overflow-wrap:anywhere}
+.end a.big:hover{text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:10px}
+.end small{display:block;margin-top:64px;font-size:14px;opacity:.7}
+
+/* lightbox */
+dialog{border:0;padding:0;background:transparent;max-width:min(1600px,96vw);max-height:94vh}
+dialog::backdrop{background:rgba(8,8,7,.88)}
+dialog img{max-height:94vh;width:auto;border-radius:10px;cursor:zoom-out}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#"><i></i>Mariia157</a>
+    <nav>
+      <a href="#taskflow">Taskflow</a>
+      <a href="#nihongo">Nihongo SRS</a>
+      <a href="#ragepc">RagePC</a>
+      <a href="#other">Інше</a>
+      <a class="gh" href="https://github.com/Mariia157">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Пишу веб-застосунки, якими <em>користуються щодня</em></h1>
+      <p class="lead">Full-stack на Next.js, TypeScript і Prisma. Нижче три останні проєкти: трекер задач для команди з Telegram-ботом, тренажер японської з інтервальними повтореннями та інтернет-магазин комплектуючих, де конфігуратор сам відсіює несумісні деталі.</p>
+      <div class="cta">
+        <a class="btn btn-acc" href="#taskflow">Дивитися проєкти
+          <svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        <a class="btn btn-ghost" href="https://github.com/Mariia157">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+          github.com/Mariia157</a>
+      </div>
+    </div>
+    <div class="fan" id="fan" aria-hidden="true">
+      <div class="shot f1"><img src="img/jp-home.webp" alt="" width="1400" height="875"></div>
+      <div class="shot f2"><img src="img/rage-home.webp" alt="" width="1600" height="1000"></div>
+      <div class="shot f3"><img src="img/tf-board.webp" alt="" width="1800" height="1069"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Taskflow -->
+<section class="proj tf" id="taskflow">
+  <div class="wrap">
+    <div class="title">
+      <div>
+        <h2>Taskflow</h2>
+        <div class="meta"><span>Next.js 16</span><span>TypeScript</span><span>Prisma + SQLite</span><span>Telegram-бот</span><span>PDFKit</span><span>Vitest</span></div>
+      </div>
+      <a class="repo" href="https://github.com/Mariia157/task-manager">Код на GitHub
+        <svg class="ico" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </div>
+  </div>
+  <div class="wrap"><div class="bleed"><div class="shot"><img src="img/tf-board.webp" alt="Канбан-дошка проєкту з колонками Ідея, В роботі, Чекає відповіді, Перевірка, Готово" width="1800" height="1069" loading="lazy"></div></div></div>
+  <div class="wrap">
+    <div class="body">
+      <p class="lead">Трекер задач для команди з кількох відділів. Дошки працюють як у Trello, а поверх них є те, чого Trello не вміє: рівні доступу, запити на погодження, щоденні задачі, звіти по людях у PDF і бот, що надсилає сповіщення в Telegram.</p>
+      <div class="feat">
+        <div><b>Чотири рівні доступу</b><p>Виконавець, керівник групи, керівник відділу, адмін. Кожен бачить тільки свої картки.</p></div>
+        <div><b>Запити на погодження</b><p>Задача поза правами автора не губиться, а йде адміну на підтвердження.</p></div>
+        <div><b>Підзадачі та щоденні задачі</b><p>Прогрес батьківської задачі рахується сам, щоденні створюються автоматично й ведуть історію по днях.</p></div>
+        <div><b>Звіти в PDF</b><p>Працівник і період на вибір. Хто що виконав, скільки в строк, що прострочено, розбивка по проєктах.</p></div>
+      </div>
+    </div>
+    <div class="pair">
+      <figure style="margin:0"><div class="shot"><img src="img/tf-stats.webp" alt="Статистика виконаних задач по днях" width="1400" height="875" loading="lazy"></div><figcaption>Статистика по відділах і проєктах</figcaption></figure>
+      <figure style="margin:0"><div class="shot phone"><img src="img/tf-mobile.webp" alt="Головний екран трекера на телефоні" width="600" height="1298" loading="lazy"></div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- Nihongo SRS -->
+<section class="proj jp" id="nihongo">
+  <div class="wrap">
+    <div class="head">
+      <h2>Nihongo SRS<small>Тренажер японської для рівнів JLPT N5–N1</small></h2>
+      <p>Слова, кандзі й граматика проходять через <strong>один алгоритм інтервальних повторень SM-2</strong>, як в Anki. Курс граматики зібраний за уроками Genki, до кожної теми є теорія, приклади й вікторина. Над кандзі автоматично стоїть фуригана, а аудіювання озвучує Web Speech API. Інтерфейс англійською та українською.</p>
+    </div>
+  </div>
+  <div class="shelf" tabindex="0" aria-label="Скриншоти Nihongo SRS">
+    <figure><div class="shot"><img src="img/jp-kanji.webp" alt="Сітка кандзі рівня N5" width="1400" height="875" loading="lazy"></div><figcaption>103 кандзі рівня N5 з перекладом</figcaption></figure>
+    <figure><div class="shot"><img src="img/jp-kanji-detail.webp" alt="Картка кандзі 私 з читаннями он і кун" width="1400" height="875" loading="lazy"></div><figcaption>Картка кандзі: читання, поєднання, радикали, мнемоніка</figcaption></figure>
+    <figure class="tall"><div class="shot"><img src="img/jp-mobile.webp" alt="Головна сторінка на телефоні" width="600" height="1298" loading="lazy"></div><figcaption>Мобільна версія</figcaption></figure>
+    <figure><div class="shot"><img src="img/jp-grammar.webp" alt="Розділи граматики за уроками Genki" width="1400" height="875" loading="lazy"></div><figcaption>Граматика за уроками Genki 1 і 2</figcaption></figure>
+    <figure><div class="shot"><img src="img/jp-vocab.webp" alt="Словник за рівнями JLPT" width="1400" height="875" loading="lazy"></div><figcaption>Словник: слово в чергу вивчення одним кліком</figcaption></figure>
+  </div>
+  <div class="wrap">
+    <div class="nums">
+      <div>552<span>слова в базі, 149 з прикладами речень</span></div>
+      <div>49<span>граматичних тем у 13 розділах</span></div>
+      <div>675<span>вправ на граматику, плюс аудіювання й читання</span></div>
+    </div>
+    <div class="foot">
+      <span>Next.js 16 · TypeScript · Tailwind v4 · Prisma 7 · SQLite / PostgreSQL · Vitest</span>
+      <a class="repo" href="https://github.com/Mariia157/japanese-study-web">Код на GitHub
+        <svg class="ico" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- RagePC -->
+<section class="proj rage" id="ragepc">
+  <div class="wrap">
+    <div>
+      <h2>RagePC</h2>
+      <div class="meta"><span>Next.js 16</span><span>React 19</span><span>PostgreSQL</span><span>Prisma</span></div>
+      <p class="lead">Інтернет-магазин комплектуючих і готових збірок. Головне в ньому конфігуратор: він веде від процесора до блока живлення й на кожному кроці ховає деталі, які не підійдуть.</p>
+      <ul>
+        <li><svg class="ico" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><span><b>Перевірка сумісності.</b> Сокет, тип пам'яті, форм-фактор, довжина відеокарти, TDP кулера.</span></li>
+        <li><svg class="ico" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span><b>Розрахунок живлення.</b> Сумарне споживання збірки, і блоки живлення без запасу відсіюються.</span></li>
+        <li><svg class="ico" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.5 12h11L21 7H6"/></svg><span><b>Повний цикл покупки.</b> Каталог із фільтрами, обране, кошик, оформлення замовлення, особистий кабінет з історією.</span></li>
+        <li><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span><b>Три мови і темна тема.</b> Українська, російська, англійська, адаптивна верстка під телефон.</span></li>
+      </ul>
+      <a class="repo" href="https://github.com/Mariia157/RagePC">Код на GitHub
+        <svg class="ico" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </div>
+    <div class="stage">
+      <div class="shot back"><img src="img/rage-home.webp" alt="Головна сторінка RagePC" width="1600" height="1000" loading="lazy"></div>
+      <div class="shot front"><img src="img/rage-configure.webp" alt="Конфігуратор: обрані процесор, плата, пам'ять, відеокарта, охолодження й підсумкове споживання" width="1600" height="810" loading="lazy"></div>
+      <div class="shot phone"><img src="img/rage-mobile.webp" alt="RagePC на телефоні" width="600" height="1298" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Other -->
+<section class="other" id="other">
+  <div class="wrap">
+    <h2>Раніше: C++, ігри й десктоп</h2>
+    <div class="rows">
+      <a class="row" href="https://github.com/Mariia157/TimeRun"><b>TimeRun</b><p>Прототип гри на Unreal Engine 5 з режимами платформера, бою та сайд-скролера</p><span class="tech">C++ · Unreal Engine 5</span><span class="yr">2026 <svg class="ico" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+      <a class="row" href="https://github.com/Mariia157/DoodleJump"><b>DoodleJump</b><p>Аркадний платформер-стрибалка з ворогами, чорними дірами й хітбоксами</p><span class="tech">C++ · SDL</span><span class="yr">2026 <svg class="ico" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+      <a class="row" href="https://github.com/Mariia157/QtCalculator"><b>QtCalculator</b><p>Десктопний калькулятор з інтерфейсом у Qt Designer</p><span class="tech">C++ · Qt Widgets</span><span class="yr">2025 <svg class="ico" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Stack -->
+<section class="stack">
+  <div class="wrap">
+    <h2>З чим працюю</h2>
+    <div class="cols">
+      <div><h3><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>Інтерфейс</h3><p>Next.js App Router, React 19, TypeScript, Tailwind CSS v4, dnd-kit для перетягування, Recharts для графіків, адаптивна верстка.</p></div>
+      <div><h3><svg class="ico" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Сервер і дані</h3><p>Server Actions, Prisma 7, PostgreSQL і SQLite, власні сесії з bcrypt, генерація PDF, Telegram Bot API.</p></div>
+      <div><h3><svg class="ico" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>Якість і викладка</h3><p>Vitest, e2e-прогони на Playwright, ESLint, PM2 і Nginx на VPS, атомарна викладка скриптом.</p></div>
+      <div><h3><svg class="ico" viewBox="0 0 24 24"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg>C++</h3><p>Unreal Engine 5, Qt Widgets, SDL. Звідси звичка думати про пам'ять і продуктивність.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="end">
+  <div class="wrap">
+    <p>Код усіх проєктів відкритий. Якщо хочеться подивитися глибше, ніж скриншоти, усе тут:</p>
+    <a class="big" href="https://github.com/Mariia157">github.com/Mariia157</a>
+    <small>Скриншоти зняті з локально запущених проєктів на демо-даних.</small>
+  </div>
+</footer>
+
+<dialog id="lb"><img alt=""></dialog>
+
+<script>
+(function(){
+  var fan=document.getElementById('fan');
+  requestAnimationFrame(function(){setTimeout(function(){fan.classList.add('open')},250)});
+  var lb=document.getElementById('lb'), li=lb.querySelector('img');
+  document.querySelectorAll('.shot img').forEach(function(img){
+    if(img.closest('.fan'))return;
+    img.addEventListener('click',function(){li.src=img.src;li.alt=img.alt;lb.showModal()});
+  });
+  lb.addEventListener('click',function(){lb.close()});
+})();
+</script>
+</body>
+</html>
